@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ssh ubuntu@ec2-52-11-37-208.us-west-2.compute.amazonaws.com << EOF
+ssh ubuntu@ec2-52-88-130-185.us-west-2.compute.amazonaws.com << EOF
   cd ~/Nourriture
   git pull
   npm install --production
