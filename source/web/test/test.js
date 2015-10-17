@@ -1,2 +1,2 @@
 var request = require('supertest');
-var app = require('../app.js');
+var app = require('../nourriture/app.js');
