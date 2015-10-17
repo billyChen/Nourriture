@@ -1,7 +1,7 @@
 var express = require('express');
-// var mongo = require('mongodb');
-// var monk = require('monk');
-// var db = monk('localhost:27017/ingredients');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/ingredients');
 
 var app = express();
 
