@@ -1,0 +1,13 @@
+{
+  "name": "Crêpes",
+  "ingredients": [
+    { "name": "Lait",
+      "quantity": "2mL"
+    },
+    { "name": "Butter",
+     "quantity": "1cL"
+    }
+  ],
+  "country": "France",
+  "time": "15min"
+}
