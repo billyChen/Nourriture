@@ -10,4 +10,29 @@
   ],
   "country": "France",
   "time": "15min"
+},
+{
+  "name": "Madeleine",
+  "ingredients": [
+    { "name": "Oeuf",
+      "quantity": "3"
+    },
+    { "name": "Sucre",
+     "quantity": "150g"
+    },
+    { "name": "Farine",
+     "quantity": "200g"
+    },
+    { "name": "Levure",
+     "quantity": "8g"
+    },
+    { "name": "Butter",
+     "quantity": "100g"
+    },
+    { "name": "Lait",
+     "quantity": "50g"
+    }
+  ],
+  "country": "France",
+  "time": "30min"
 }
