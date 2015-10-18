@@ -6,11 +6,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/international', function(req, res) {
+router.get('/recipes', function(req, res) {
   var db = req.db;
   var collection = db.get('recettes');
   collection.find({},{},function(e,docs){
-    res.render('international', {
+    res.render('recipes', {
       "recipes" : docs
     });
   });
