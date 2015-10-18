@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/recipes', function(req, res) {
+router.get('/international', function(req, res) {
   var db = req.db;
   var collection = db.get('recettes');
   collection.find({},{},function(e,docs){
