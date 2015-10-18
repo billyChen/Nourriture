@@ -10,7 +10,7 @@ router.get('/international', function(req, res) {
   var db = req.db;
   var collection = db.get('recettes');
   collection.find({},{},function(e,docs){
-    res.render('recipes', {
+    res.render('international', {
       "recipes" : docs
     });
   });
