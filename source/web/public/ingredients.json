@@ -1,22 +1,27 @@
 {
-  "ingredients": [
-  {
-    "name": "Milk"
+  "ingredients": {
+  "id1": {
+  "name": "Milk"
   },
+  "id2":
   {
-    "name": "Tomatoes"
+  "name": "Tomatoes"
   },
+  "id3":
   {
-    "name": "Butter"
+  "name": "Butter"
   },
+  "id4":
   {
-    "name": "Garlic"
+  "name": "Garlic"
   },
+  "id5":
   {
-    "name": "Carott"
+  "name": "Carott"
   },
+  "id6":
   {
-    "name": "Spinach"
+  "name": "Spinach"
   }
-  ],
+  }
 }
