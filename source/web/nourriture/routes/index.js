@@ -6,6 +6,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/all_ingredients', function(req, res, next) {
+  router.get('/api/listIngredients', function(req, res, next) {
+    console.log("HIHIHIHIHIHIHI");
+  });
+    res.render('recipes');
+    console.log("TBTBTBTBTBTBTB");
+});
+
 router.get('/recipes', function(req, res) {
   var db = req.db;
   var collection = db.get('recettes');
