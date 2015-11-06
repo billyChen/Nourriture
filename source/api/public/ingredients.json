@@ -1,0 +1,41 @@
+{
+  "ingredient": {
+    "name": "milk",
+    "calories": "150"
+  }
+}
+{
+  "ingredient":
+  {
+    "name": "tomatoes",
+    "calories": "10"
+  }
+}
+{
+  "ingredient":
+  {
+    "name": "butter",
+    "calories": "300"
+  }
+}
+{
+  "ingredient":
+  {
+    "name": "garlic",
+    "calories": "35"
+  }
+}
+{
+  "ingredient":
+  {
+    "name": "carott",
+    "calories": "10"
+  }
+}
+{
+  "ingredient":
+  {
+    "name": "spinach",
+    "calories": "30"
+  }
+}
