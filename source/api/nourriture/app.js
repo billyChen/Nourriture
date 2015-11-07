@@ -2,14 +2,17 @@ var express = require('express')
   , passport = require('passport')
   , util = require('util')
   , FacebookStrategy = require('passport-facebook').Strategy
+  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
   , logger = require('morgan')
   , session = require('express-session')
   , bodyParser = require("body-parser")
   , cookieParser = require("cookie-parser")
   , methodOverride = require('method-override');
 
-var FACEBOOK_APP_ID = "322980324492560"
+var FACEBOOK_APP_ID = "322980324492560";
 var FACEBOOK_APP_SECRET = "745cc0ed81f3de714e42d6fd086abff5";
+var GOOGLE_CLIENT_ID = "961840791432-kmmtn60o69622kgl2gsdia8d3kpdc6j4.apps.googleusercontent.com";
+var GOOGLE_CLIENT_SECRET = "vQJtPVgD6E7HpDzFC7Y96k_Y";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -27,6 +30,25 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "https://nourritureapi.herokuapp.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+
+      // To keep the example simple, the user's Google profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Google account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    });
+  }
+));
+
+
 // Use the FacebookStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Facebook
@@ -34,7 +56,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "https://nourritureapi.herokuapp.com/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -81,6 +103,31 @@ app.get('/login', function(req, res){
   res.render('login', { user: req.user });
 });
 
+
+// GET /auth/google
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Google authentication will involve
+//   redirecting the user to google.com.  After authorization, Google
+//   will redirect the user back to this application at /auth/google/callback
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
+  function(req, res){
+    // The request will be redirected to Google for authentication, so this
+    // function will not be called.
+  });
+
+// GET /auth/google/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/google/callback',
+  passport.authenticate('google', { successRedirect: '/success',
+                                    failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Facebook authentication will involve
@@ -99,11 +146,19 @@ app.get('/auth/facebook',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }),
+  passport.authenticate('facebook', { successRedirect: '/success',
+                                      failureRedirect: '/failure' }),
   function(req, res) {
     res.redirect('/');
   });
+
+app.get('/success', function(req, res) {
+  res.send('SUCCESS');
+});
+
+app.get('/failure', function(req, res) {
+  res.send('Connection failed !');
+});
 
 app.get('/logout', function(req, res){
   req.logout();
