@@ -1,41 +1,338 @@
 {
-  "ingredient": {
-    "name": "milk",
-    "calories": "150"
-  }
-}
-{
-  "ingredient":
+  "flour":
   {
-    "name": "tomatoes",
-    "calories": "10"
-  }
-}
-{
-  "ingredient":
-  {
-    "name": "butter",
-    "calories": "300"
-  }
-}
-{
-  "ingredient":
-  {
-    "name": "garlic",
-    "calories": "35"
-  }
-}
-{
-  "ingredient":
-  {
-    "name": "carott",
-    "calories": "10"
-  }
-}
-{
-  "ingredient":
-  {
-    "name": "spinach",
-    "calories": "30"
-  }
-}
+    "name": "flour",
+    "calories": "343.3",
+    "description": "Flour is the powdery substance created when a dry grain is pulverized. This is referred to as the milling process. The most common varieties of flour are made from wheat although any grain can be made into flour, including rice, oats, corn or barley.",
+    "protein": "10",
+    "lipid": "1.3",
+    "saturated fat": "0.2",
+    "carbohydrate": "71.5",
+    "starch": "70",
+    "Total sugar": "1.5",
+    "dietary fiber": "2.8",
+    "salt": "0.01",
+    "calcium": "16",
+    "magnesium": "20",
+    "phosphorus": "120",
+    "potassium": "135",
+    "sodium": "3",
+    "E": "0.3",
+    "B1": "0.1",
+    "B2": "0.05",
+    "B6": "0.2",
+    "B9": "24"
+    },
+    "potato":
+    {
+      "name": "potato",
+      "calories": "82.7",
+      "description": "Potato is a cool-season vegetable that ranks with wheat and rice as one of the most important staple crops in the human diet around the world. The white potato is referred to as the 'Irish potato' because it is associated with the potato famine in Ireland in the 19th century. Potatoes are not roots but specialized underground storage stems called 'tubers.' Maximal tuber formation occurs at soil temperatures between 60° and 70°F. The tubers fail to form when the soil temperature reaches 80°F. Potatoes withstand light frosts in the spring and can be grown throughout most of the country in the cooler part of the growing season, but they prefer the northern tier of states for maximal yield and quality.",
+      "protein": "1.5",
+      "lipid": "0.1",
+      "saturated fat": "0",
+      "carbohydrate": "18",
+      "starch": "17.6",
+      "Total sugar": "0.4",
+      "dietary fiber": "1.9",
+      "salt": "0.01",
+      "calcium": "6",
+      "magnesium": "18",
+      "phosphorus": "30",
+      "potassium": "330",
+      "sodium": "4",
+      "E": "0.1",
+      "B1": "9",
+      "B2": "0.03",
+      "B6": "0.19",
+      "B9": "15"
+      },
+      "butter":
+      {
+        "name": "butter",
+        "calories": "558.7",
+        "description": "Made by churning cream until it reaches a semisolid state, butter must by U.S. law be at least 80 percent milk fat. The remaining 20 percent consists of water and milk solids. The U.S. Department of Agriculture (USDA) grades butter quality based on flavor, body, texture, color and salt. Butter packages bear a shield surrounding the letter grade (and occasionally the numerical score equivalent) indicating the quality of the contents.",
+        "protein": "0.9",
+        "lipid": "60.9",
+        "saturated fat": "38.6",
+        "carbohydrate": "1.6",
+        "starch": "0.1",
+        "Total sugar": "1.5",
+        "dietary fiber": "0.3",
+        "salt": "1.15",
+        "calcium": "21",
+        "magnesium": "8",
+        "phosphorus": "29",
+        "potassium": "46",
+        "sodium": "451",
+        "E": "1.5",
+        "B1": "0.02",
+        "B2": "0.03",
+        "B6": "0.02",
+        "B9": "3"
+        },
+        "garlic":
+        {
+          "name": "garlic",
+          "calories": "166.38",
+          "description": "Garlic has long been credited with providing and prolonging physical strength and was fed to Egyptian slaves building the giant pyramids. Throughout the centuries, its medicinal claims have included cures for toothaches, consumption, open wounds and evil demons. A member of the lily family, garlic is a cousin to leeks, chives, onions and shallots. The edible bulb or 'head' grows beneath the ground.",
+          "protein": "6.36",
+          "lipid": "0.5",
+          "saturated fat": "0.09",
+          "carbohydrate": "30.96",
+          "Total sugar": "1",
+          "dietary fiber": "2.1",
+          "salt": "0.04",
+          "calcium": "181",
+          "magnesium": "1.7",
+          "phosphorus": "153",
+          "potassium": "401",
+          "sodium": "17",
+          "B1": "0.2",
+          "B2": "0.11",
+          "B6": "0.1.24"
+          },
+          "carrot":
+          {
+            "name": "carrot",
+            "calories": "35",
+            "description": "This member of the parsley family has lacy green foliage and long, slender, edible orange roots. Carrots have been renowned for over 2,000 years for their health-giving properties and high vitamin A content.",
+            "protein": "0.8",
+            "lipid": "0",
+            "saturated fat": "0",
+            "carbohydrate": "6.6",
+            "starch": "0.2",
+            "Total sugar": "6.4",
+            "dietary fiber": "2.7",
+            "salt": "0.09",
+            "calcium": "27",
+            "magnesium": "10",
+            "phosphorus": "16",
+            "potassium": "286",
+            "sodium": "35",
+            "E": "0.5",
+            "B1": "0.1",
+            "B2": "0.05",
+            "B6": "0.16",
+            "B9": "38"
+            },
+            "spinach":
+            {
+              "name": "spinach",
+              "calories": "23.12",
+              "description": "Bright, vibrant-looking spinach leaves are not only more appealing to the eye but more nourishing as well. Recent research has shown that spinach leaves that look fully alive and vital have greater concentrations of vitamin C than spinach leaves that are pale in color. The study authors suggest that the greater supply of vitamin C helps protect all of the oxygen-sensitive phytonutrients in the spinach leaves and makes them looking vibrant and alive.",
+              "protein": "2.6",
+              "lipid": "0.16",
+              "saturated fat": "0.08",
+              "carbohydrate": "1.52",
+              "Total sugar": "1.52",
+              "dietary fiber": "2.6",
+              "salt": "0.14",
+              "sodium": "56"
+              },
+              "eggs":
+              {
+                "name": "eggs",
+                "calories": "145.7",
+                "description": "Legends about eggs have abounded throughout the eons. Early Phoenicians thought that a primeval egg split open to form heaven and earth; Egyptians believed that their god Ptah created the egg from the sun and the moon; and American Indians thought that the Great Spirit burst forth from a giant golden egg to create the world. In all of the early legends the chicken is never mentioned, making the answer to the question of which came first—the chicken or the egg—seem obvious. The most common egg used for food today is the hen's egg, though those from other fowl—including duck, goose and quail—are sold in many areas.",
+                "protein": "12.5",
+                "lipid": "10.5",
+                "saturated fat": "3.2",
+                "carbohydrate": "0.3",
+                "Total sugar": "0.3",
+                "dietary fiber": "0",
+                "salt": "0.34",
+                "calcium": "53",
+                "magnesium": "11",
+                "phosphorus": "186",
+                "potassium": "126",
+                "sodium": "133",
+                "E": "1.2",
+                "B1": "0.07",
+                "B2": "0.35",
+                "B6": "0.12",
+                "B9": "88"
+                },
+                "rice":
+                {
+                  "name": "rice",
+                  "calories": "119.2",
+                  "description": "This ancient and venerable grain has been cultivated since at least 5000 B.C., and archaeological explorations in China have uncovered sealed pots of rice that are almost 8,000 years old. Today, rice is a staple for almost half the world's population—particularly in parts of China, India, Indonesia, Japan and Southeast Asia. The 7,000-plus varieties of rice are grown in one of two ways. Aquatic rice (paddy-grown) is cultivated in flooded fields. The lower-yielding, lower-quality hill-grown rice can be grown on almost any tropical or subtropical terrain.",
+                  "protein": "2.5",
+                  "lipid": "0.8",
+                  "saturated fat": "0.2",
+                  "carbohydrate": "24.6",
+                  "starch": "24.2",
+                  "Total sugar": "0.4",
+                  "dietary fiber": "1.8",
+                  "salt": "0.01",
+                  "calcium": "9",
+                  "magnesium": "43",
+                  "phosphorus": "83",
+                  "potassium": "79",
+                  "sodium": "2",
+                  "E": "0.2",
+                  "B1": "0.1",
+                  "B2": "0.02",
+                  "B6": "0.15",
+                  "B9": "10"
+                  },
+                  "green beans":
+                  {
+                    "name": "green beans",
+                    "calories": "22.5",
+                    "description": "These seeded pods of various legumes are among the oldest foods known to humanity, dating back at least 4,000 years. They come in two broad categories—fresh and dried. Some beans, such as the black-eyed pea, lima bean and cranberry bean, can be found in both fresh and dried forms. Fresh beans are commercially available in their fresh form and are generally sold in their pods.",
+                    "protein": "1.3",
+                    "lipid": "0.1",
+                    "saturated fat": "0",
+                    "carbohydrate": "3.1",
+                    "starch": "2.3",
+                    "Total sugar": "0.8",
+                    "dietary fiber": "2",
+                    "salt": "0.78",
+                    "calcium": "43",
+                    "magnesium": "13",
+                    "phosphorus": "22",
+                    "potassium": "107",
+                    "sodium": "307",
+                    "E": "260",
+                    "B1": "0.02",
+                    "B2": "0.05",
+                    "B6": "0.06",
+                    "B9": "35"
+                    },
+                    "bread":
+                    {
+                      "name": "bread",
+                      "calories": "244",
+                      "description": "A yeast bread that is formed without kneading. It begins with a very thick batter that often requires extra yeast and, in order to stretch the gluten so the bread will rise effectively, always demands vigorous beating (which can be accomplished with an electric mixer).",
+                      "protein": "9",
+                      "lipid": "1.8",
+                      "saturated fat": "0.4",
+                      "carbohydrate": "44.2",
+                      "starch": "41.9",
+                      "Total sugar": "2.3",
+                      "dietary fiber": "7.5",
+                      "salt": "1.78",
+                      "calcium": "58",
+                      "magnesium": "81",
+                      "phosphorus": "195",
+                      "potassium": "225",
+                      "sodium": "700",
+                      "E": "1",
+                      "B1": "0.3",
+                      "B2": "0.14",
+                      "B6": "0.21",
+                      "B9": "28"
+                      },
+                      "beef steak":
+                      {
+                        "name": "beef steak",
+                        "calories": "159.6",
+                        "description": "Essentially a ground-beef patty that has been flavored with minced onion and seasonings before being fried or broiled.",
+                        "protein": "25.5",
+                        "lipid": "6.4",
+                        "saturated fat": "2.7",
+                        "carbohydrate": "0",
+                        "dietary fiber": "0",
+                        "salt": "0.19",
+                        "calcium": "8",
+                        "magnesium": "27",
+                        "phosphorus": "241",
+                        "potassium": "439",
+                        "sodium": "74",
+                        "E": "0.18",
+                        "B1": "0.09",
+                        "B2": "0.22",
+                        "B6": "0.37",
+                        "B9": "9"
+                        },
+                        "radish":
+                        {
+                          "name": "radish",
+                          "calories": "18.5",
+                          "description": "From the Latin radix, meaning 'root,' the radish is in fact the root of a plant in the mustard family. Its skin can vary in color from white to red to purple to black (and many shades in between). In shape and size, the radish can be round, oval or elongated and can run the gamut from globes ½ inch in diameter to carrotlike giants (such as the daikon) 1½ feet in length",
+                          "protein": "0.6",
+                          "lipid": "0.3",
+                          "saturated fat": "0.1",
+                          "carbohydrate": "2.6",
+                          "Total sugar": "2.6",
+                          "dietary fiber": "1.5",
+                          "salt": "0.03",
+                          "calcium": "20",
+                          "magnesium": "7",
+                          "phosphorus": "18",
+                          "potassium": "243",
+                          "sodium": "12",
+                          "B1": "0.03",
+                          "B2": "0.04",
+                          "B6": "0.07",
+                          "B9": "52"
+                          },
+                          "asparagus":
+                          {
+                            "name": "asparagus",
+                            "calories": "23.5",
+                            "description": "Asparagus or garden asparagus, scientific name Asparagus officinalis, is a spring vegetable, a flowering perennial plant species in the genus Asparagus.",
+                            "protein": "2.7",
+                            "lipid": "0.3",
+                            "saturated fat": "0.1",
+                            "carbohydrate": "1.5",
+                            "Total sugar": "1.5",
+                            "dietary fiber": "2",
+                            "salt": "0.01",
+                            "calcium": "21",
+                            "magnesium": "10",
+                            "phosphorus": "55",
+                            "potassium": "200",
+                            "sodium": "3",
+                            "E": "1.5",
+                            "B1": "0.11",
+                            "B2": "0.13",
+                            "B6": "0.07",
+                            "B9": "75"
+                            },
+                            "mushroom":
+                            {
+                              "name": "mushroom",
+                              "calories": "29.67",
+                              "description": "Also called corn smut, maize mushroomhuitlacoche, this gourmet rage is actually a bulbous fungus (technically known as Ustilago maydis) that attacks ears of corn and makes the kernels swell to 10 times their normal size.",
+                              "protein": "2.11",
+                              "lipid": "0.35",
+                              "saturated fat": "0.06",
+                              "carbohydrate": "2.57",
+                              "Total sugar": "2.5",
+                              "dietary fiber": "1.3",
+                              "salt": "0.02",
+                              "calcium": "3",
+                              "phosphorus": "108",
+                              "potassium": "364",
+                              "sodium": "9",
+                              "B1": "0.06",
+                              "B2": "0.13",
+                              "B6": "0.15"
+                              },
+                              "cabbage":
+                              {
+                                "name": "cabbage",
+                                "calories": "15.7",
+                                "description": "The word cabbage is a derivation of the French word caboche, a colloquial term for 'head.' The cabbage family — of which Brussels sprouts, broccoli, cauliflower and kale are all members — is wide and varied.",
+                                "protein": "1.2",
+                                "lipid": "0.3",
+                                "saturated fat": "0",
+                                "carbohydrate": "1.3",
+                                "Total sugar": "1.3",
+                                "dietary fiber": "1.5",
+                                "salt": "0.04",
+                                "calcium": "37",
+                                "magnesium": "11",
+                                "phosphorus": "24",
+                                "potassium": "234",
+                                "sodium": "15",
+                                "E": "0.5",
+                                "B1": "0.08",
+                                "B2": "0.07",
+                                "B6": "0.05",
+                                "B9": "127"
+                              }
+                            }
