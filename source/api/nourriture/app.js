@@ -283,4 +283,63 @@ app.get('/form_add_ingredients', function(req, res, next) {
   res.render('form_add_ingredients');
 });
 
+// ************************************ PRODUCTS ************************************
+
+// List all products
+app.get('/listProducts', function(req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.find({},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Add Products
+app.post('/addProducts', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.send(
+             (err === null) ? { msg: '' } : { msg: err }
+             );
+  });
+});
+
+// Show products
+app.get('/showProducts/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.find({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// Delete Recipes
+app.get('/deleteProducts/:id', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+
+  collection.remove({"_id" : req.params.id},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+// ********************************** WEBSITE MAIN FEATURE **************************************
+
+app.post('/search', function (req, res, next) {
+  var db = req.db;
+  var collection = db.get('recipes');
+  var search = req.body.search;
+  var result = [];
+
+  console.log(search);
+  collection.find({'name' : new RegExp(search)}, {}, function (e, docs) {
+    res.end(JSON.stringify(docs));
+  });
+});
+
 module.exports = app;

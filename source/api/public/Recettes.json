@@ -1,44 +1,44 @@
 {
-  "recipe": {
     "name": "Crêpes",
     "ingredients": [
-    { "name": "Lait",
+    { "name": "milk",
     "quantity": "2mL"
     },
-    { "name": "Butter",
+    { "name": "butter",
     "quantity": "1cL"
   }
   ],
-  "country": "France",
+  "country": "france",
   "time": "15min",
   "calories": "1000"
-}
 },
 {
   "recipe": {
-    "name": "Madeleine",
+    "name": "madeleine",
     "ingredients": [
-    { "name": "Oeuf",
+    { "name": "egg",
     "quantity": "3"
     },
-    { "name": "Sucre",
+    { "name": "sugar",
     "quantity": "150g"
     },
-    { "name": "Farine",
+    { "name": "flour",
     "quantity": "200g"
     },
-    { "name": "Levure",
-    "quantity": "8g"
-    },
-    { "name": "Butter",
+    { "name": "butter",
     "quantity": "100g"
     },
-    { "name": "Lait",
+    { "name": "milk",
     "quantity": "50g"
   }
   ],
-  "country": "France",
+  "country": "france",
   "time": "30min",
-  "calories": "1250"
+  "calories": "1250",
+   "Desciption": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan urna sed enim posuere maximus. Maecenas eu convallis velit, et laoreet ligula. Nulla cursus semper ultricies. Proin venenatis nisi iaculis, placerat erat in, laoreet purus.",
+ "type": "dessert",
+ "cost": "5",
+ "difficulty": "0"
+
 }
 }
