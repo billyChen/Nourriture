@@ -24,6 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/welcome', users);
+app.use('/addIngredients', users);
+app.use('/addRecipe', users);
+app.use('/logIn', users);
+app.use('/createUser', users);
 //app.use('/nourriture', routes);
 
 // catch 404 and forward to error handler
@@ -57,13 +62,16 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.get('/', function(req, res){
+/*app.get('/', function(req, res){
   //res.send('salut tout le monde');
   res.render('index', {title : 'accueil'});
 })
 .get('/nourriture', function(req, res){
   res.render('nourriture', {title: 'nourriture'});
-});
+})
+.get('/welcome', function(req, res){
+  res.render('welcome', {title: 'bienvenu'});
+});*/
 
 module.exports = app;
 app.listen(3000);
