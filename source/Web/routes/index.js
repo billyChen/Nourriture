@@ -21,9 +21,9 @@ router.post('/query_search', function (req, res) {
     url: 'http://localhost:5000/search',
     method: 'POST',
     form: {
-        search: req.body.q
+      search: req.body.q
     }
-}, function (error, response, body) {
+  }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var result = body;
       console.log("==============================BODY==============================")
@@ -50,8 +50,16 @@ router.get('/logIn', function(req, res, next) {
 	res.render('logIn', { title: 'LogIn'});
 });
 
-router.get('/createUser', function(req, res, next){
-	res.render('createUser', { title: 'Create your profil'});
+router.post('/insertUserData', function(req, res, next){
+  var db = req.db;
+  var collection = db.get('users');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.render('inscriptionSuccess',
+               (err === null) ? { msg: 'Success' } : { msg: err }
+               );
+  });
 });
 
 // app.route('/monProfil/:id', function() {

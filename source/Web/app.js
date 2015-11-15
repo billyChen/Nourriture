@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('mongodb://root:123456@ds049624.mongolab.com:49624/nourriture');
 
 var app = express();
 
@@ -22,13 +25,34 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req,res,next){
+  req.db = db;
+  next();
+});
+
+app.get('/createUser', function(req, res, next){
+  var db = req.db;
+  var collection = db.get('allergens');
+  var allergens = [""];
+
+  collection.find({},{},function(e,docs){
+    console.log(docs);
+    allergens = docs;
+    res.render('createUser', { title: 'Create your profil',
+               allergens: allergens});
+  });
+
+});
+
+
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/welcome', users);
 app.use('/addIngredients', users);
 app.use('/addRecipe', users);
 app.use('/logIn', users);
-app.use('/createUser', users);
+// app.use('/createUser', users);
 //app.use('/nourriture', routes);
 
 // catch 404 and forward to error handler
@@ -61,17 +85,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-/*app.get('/', function(req, res){
-  //res.send('salut tout le monde');
-  res.render('index', {title : 'accueil'});
-})
-.get('/nourriture', function(req, res){
-  res.render('nourriture', {title: 'nourriture'});
-})
-.get('/welcome', function(req, res){
-  res.render('welcome', {title: 'bienvenu'});
-});*/
-
 
 module.exports = app;
