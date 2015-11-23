@@ -1,14 +1,35 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+  var sess = req.session;
+  res.render('index', { title: 'Home', sess: sess });
 });
 
 /* GET nourriture page. */
 router.get('/nourriture', function(req, res, next){
 	res.render('nourriture', { title: 'Nourriture' });
+});
+
+router.get('/result', function (req, res) {
+  res.render('search_result');
+});
+
+router.post('/query_search', function (req, res) {
+  request.post({
+    url: 'http://nourritureapi.herokuapp.com/search',
+    method: 'POST',
+    form: {
+      search: req.body.q
+    }
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var result = body;
+    }
+    res.send(body);
+  });
 });
 
 /* GET connection page. */
@@ -28,14 +49,34 @@ router.get('/logIn', function(req, res, next) {
 	res.render('logIn', { title: 'LogIn'});
 });
 
-router.get('/createUser', function(req, res, next){
-	res.render('createUser', { title: 'Create your profil'});
+router.post('/insertUserData', function(req, res, next){
+  var db = req.db;
+  var collection = db.get('users');
+  var obj = {};
+
+  collection.insert(req.body, function(err, result){
+    res.render('inscriptionSuccess',
+               (err === null) ? { msg: 'Success' } : { msg: err }
+               );
+  });
 });
 
-// app.route('/monProfil/:id', function() {
-// 	request('https://nourritureapi.herokuapp.com/getUser/:id', function (req, res, body){
-// 		console.log(body);
-// 	});
-// });
+router.get('/getSuitability/:id', function(req, res, next){
+  if (req.session['user']) {
+    request.post({
+      url: 'http://nourritureapi.herokuapp.com/getSuitability',
+      method: 'POST',
+      form: {
+        _user: req.session['user'],
+        _id: req.params.id
+      }
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var result = body;
+      }
+      res.send(body);
+    });
+  }
+});
 
 module.exports = router;
