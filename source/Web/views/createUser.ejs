@@ -52,7 +52,7 @@
                   </div>
                   <div class="field">
                     <label for="allergic">Allergic food :</label>
-                    <select id="tokenize_nonewelement" name="allergens[]" multiple="multiple" class="tokenize-sample">
+                    <select id="tokenize_nonewelement" name="allergens" multiple="multiple" class="tokenize-sample">
                       <% for (var i = 0; i < allergens.length; i++) { %>
                       <option value="<%= allergens[i]["name"] %>"><%= allergens[i]["name"] %></option>
                       <% }%>
@@ -62,8 +62,8 @@
                   <div class="field">
                     <label for="preference">Your preferences:</label>
                     <select id="tokenize_preference" name="preference[]" multiple="multiple" class="tokenize-sample">
-                      <% for (var i = 0; i < allergens.length; i++) { %>
-                      <option value="<%= allergens[i]["name"] %>"><%= allergens[i]["name"] %></option>
+                      <% for (var i = 0; i < ingredients.length; i++) { %>
+                      <option value="<%= ingredients[i]["name"] %>"><%= ingredients[i]["name"] %></option>
                       <% }%>
                     </select>
                   </div>
@@ -96,4 +96,5 @@
 
 <script>
 $('#tokenize_nonewelement').tokenize({newElements:false});
+$('#tokenize_preference').tokenize({newElements:false});
 </script>

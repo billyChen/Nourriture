@@ -1,9 +1,12 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var request = require('request');
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'NourritureWebInterfaceSecret2015'}));
 
 app.use(function(req,res,next){
   req.db = db;
@@ -33,15 +37,50 @@ app.use(function(req,res,next){
 app.get('/createUser', function(req, res, next){
   var db = req.db;
   var collection = db.get('allergens');
-  var allergens = [""];
-
-  collection.find({},{},function(e,docs){
-    console.log(docs);
-    allergens = docs;
-    res.render('createUser', { title: 'Create your profil',
-               allergens: allergens});
+  var allergens = [''];
+  var ingredients = [''];
+  request.get({
+    url: 'http://nourritureapi.herokuapp.com/listAllergens',
+    method: 'GET',
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      allergens = JSON.parse(body);
+      request.get({
+        url: 'http://nourritureapi.herokuapp.com/listIngredients',
+        method: 'GET',
+      }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          ingredients = JSON.parse(body);
+          res.render('createUser', { title: 'Create your profil',
+                     allergens: allergens,
+                     ingredients: ingredients});
+        }
+      });
+    }
   });
+});
 
+app.post('/UserAuthentication', function(req, res, next){
+  var sess;
+
+  request.post({
+    url: 'http://nourritureapi.herokuapp.com/ensureAuth',
+    method: 'POST',
+    form: {
+      username: req.body.username,
+      password: req.body.password
+    }
+  }, function (error, response, body) {
+    sess = req.session;
+
+    sess.user = JSON.parse(body);
+    console.log(body);
+    res.redirect('/');
+  });
+});
+
+app.get('/logOut', function (req, res, next) {
+  req.session.destroy();
 });
 
 

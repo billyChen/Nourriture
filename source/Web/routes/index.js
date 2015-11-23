@@ -4,7 +4,8 @@ var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+  var sess = req.session;
+  res.render('index', { title: 'Home', sess: sess });
 });
 
 /* GET nourriture page. */
@@ -18,7 +19,7 @@ router.get('/result', function (req, res) {
 
 router.post('/query_search', function (req, res) {
   request.post({
-    url: 'http://localhost:5000/search',
+    url: 'http://nourritureapi.herokuapp.com/search',
     method: 'POST',
     form: {
       search: req.body.q
@@ -26,8 +27,6 @@ router.post('/query_search', function (req, res) {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var result = body;
-      console.log("==============================BODY==============================")
-      console.log(body);
     }
     res.send(body);
   });
@@ -62,10 +61,22 @@ router.post('/insertUserData', function(req, res, next){
   });
 });
 
-// app.route('/monProfil/:id', function() {
-// 	request('https://nourritureapi.herokuapp.com/getUser/:id', function (req, res, body){
-// 		console.log(body);
-// 	});
-// });
+router.get('/getSuitability/:id', function(req, res, next){
+  if (req.session['user']) {
+    request.post({
+      url: 'http://nourritureapi.herokuapp.com/getSuitability',
+      method: 'POST',
+      form: {
+        _user: req.session['user'],
+        _id: req.params.id
+      }
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var result = body;
+      }
+      res.send(body);
+    });
+  }
+});
 
 module.exports = router;
