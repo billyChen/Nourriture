@@ -79,4 +79,21 @@ router.get('/getSuitability/:id', function(req, res, next){
   }
 });
 
+router.get('/alternativeProducts/', function(req, res, next){
+  if (req.session['user']) {
+    request.post({
+      url: 'http://nourritureapi.herokuapp.com/getAlternativeProducts',
+      method: 'POST',
+      form: {
+        _user: req.session['user'],
+        _id: req.params.id
+      }
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var result = body;
+      }
+      res.send(body);
+    });
+  }
+});
 module.exports = router;
