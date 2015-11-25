@@ -18,6 +18,8 @@ var FACEBOOK_APP_SECRET = "745cc0ed81f3de714e42d6fd086abff5";
 var GOOGLE_CLIENT_ID = "961840791432-kmmtn60o69622kgl2gsdia8d3kpdc6j4.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "vQJtPVgD6E7HpDzFC7Y96k_Y";
 
+var removeDiacritics = require('diacritics').remove;
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -318,6 +320,38 @@ app.get('/showProducts/:id', function (req, res) {
   });
 });
 
+app.post('/showProducts', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var ingredients = req.body.ingredients;
+  var JSON_ingredients = [];
+
+  if (typeof ingredients === 'string' ) {
+    ingredients = ingredients.split();
+  }
+  for (var i = 0; i < ingredients.length; i++) {
+    var json_obj = {};
+
+    json_obj['name'] = ingredients[i];
+    JSON_ingredients.push(json_obj);
+  };
+
+  collection.find({"ingredients" : { $all: JSON_ingredients}},{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
+
+app.get('/showProductsByName/:name', function (req, res) {
+  var db = req.db;
+  var collection = db.get('products');
+  var name = req.params.name;
+  name = name.toLowerCase();
+  collection.find({"name" : name },{},function(e,docs){
+    res.end(JSON.stringify(docs));
+  });
+});
+
 // Delete Recipes
 app.get('/deleteProducts/:id', function (req, res) {
   var db = req.db;
@@ -450,15 +484,14 @@ app.post('/getAlternativeProducts', function (req, res) {
   if (req.body._user) {
     var user = req.body._user;
     var preferences = user[0]['preferences'];
-    var random_preference = preferences[Math.floor(Math.random()*items.length)];
+    var random_preference = preferences[Math.floor(Math.random() * preferences.length)];
 
-    res.send(random_preference);
-    // console.log(random_preference);
-    // collection.find({'types' : random_preference}, {}, function (err, docs) {
-
-    // });
+    collection.find({'types' : random_preference}, {}, function (err, docs) {
+      res.send(docs);
+    });
   }
 });
+
 
 app.post('/getSuitability', function(req, res, next){
   var db = req.db;

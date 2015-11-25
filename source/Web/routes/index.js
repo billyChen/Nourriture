@@ -79,14 +79,13 @@ router.get('/getSuitability/:id', function(req, res, next){
   }
 });
 
-router.get('/alternativeProducts/', function(req, res, next){
+router.get('/alternativeProducts', function(req, res, next){
   if (req.session['user']) {
     request.post({
       url: 'http://nourritureapi.herokuapp.com/getAlternativeProducts',
       method: 'POST',
       form: {
-        _user: req.session['user'],
-        _id: req.params.id
+        _user: req.session['user']
       }
     }, function (error, response, body) {
       if (!error && response.statusCode == 200) {
