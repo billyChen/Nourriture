@@ -2,11 +2,17 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var sess = req.session;
   res.render('index', { title: 'Home', sess: sess });
 });
+
+/*router.get('/', function(req, res, next) {
+  var sess = req.session;
+  res.sendfile('views/index.html');
+});*/
 
 /* GET nourriture page. */
 router.get('/nourriture', function(req, res, next){
