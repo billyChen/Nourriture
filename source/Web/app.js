@@ -36,11 +36,11 @@ app.use(function(req,res,next){
   next();
 });
 
-/*app.get('*', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/views/index.html'));
-});*/
+});
 
-
+/*
 app.get('/createUser', function(req, res, next){
   var db = req.db;
   var collection = db.get('allergens');
@@ -89,7 +89,7 @@ app.post('/UserAuthentication', function(req, res, next){
 app.get('/logOut', function (req, res, next) {
   req.session.destroy();
 });
-
+*/
 
 
 app.use('/', routes);
