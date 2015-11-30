@@ -1,0 +1,149 @@
+<style>
+  .tokenize-sample { width: 300px }
+
+  .spacing {
+    padding-top:7px;
+    padding-bottom:7px;
+  }
+  
+  .middlePage {
+    /*width: 680px;
+    height: 500px;*/
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    padding-top: 15%;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  #panel-body {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    padding-top: 15%;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .logo {
+    color:#CCC;
+  }
+
+  .panel-body {
+    height: 500px;
+  }
+
+  .field {
+    margin-top: 1em;
+    width: 100%;
+  }
+
+  input[type=radio] {
+   background-color:transparent;
+   border:none;
+   width:10px;
+   }
+
+  input[type=textinput] {
+     margin-right: 30%;
+  }
+
+   .button {
+    /* To position the buttons to the same position of the text fields */
+    /*padding-left: 95px; /* same size as the label elements */
+    padding-left: 70%;
+    margin-top: 1em;
+  }
+
+  button {
+    /* This extra magin represent the same space as the space between
+       the labels and their text fields */
+    margin-left: .5em;
+  }
+
+  #slider {
+      display: none;
+  }
+
+</style>
+
+<!--<div class="middlePage">-->
+        <div class="page-header">
+          <h1 class="logo">Nourriture <small>Welcome to your kitchen!</small></h1>
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Create your profile</h3>
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-7">
+                <form class="form-horizontal" action="/insertUserData" method="post">
+                  <fieldset>
+                   <!--<div id="all">-->
+                   <div class="field">
+                    <label for="name">Username :</label>
+                    <input id="textinput" name="username" type="text" class="form-control input-md" style="width: 80%;">
+                  </div>
+                  <div class="field">
+                    <label for="gender">Gender :</label>
+                    <input type="radio" name="gender" value="male"> male</input>
+                    <input type="radio" name="gender" value="female"> female</input>
+                  </div>
+                  <div class="field">
+                    <label for="allergic">Allergic food :</label>
+                    <select id="tokenize_nonewelement" name="allergens" multiple="multiple" class="tokenize-sample">
+                      <% for (var i = 0; i < allergens.length; i++) { %>
+                      <option value="<%= allergens[i]["name"] %>"><%= allergens[i]["name"] %></option>
+                      <% }%>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="preference">Your preferences:</label>
+                    <select id="tokenize_preference" name="preference[]" multiple="multiple" class="tokenize-sample">
+                      <% for (var i = 0; i < ingredients.length; i++) { %>
+                      <option value="<%= ingredients[i]["name"] %>"><%= ingredients[i]["name"] %></option>
+                      <% }%>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="password">Password :</label>
+                    <input id="textinput" name="password" type="text" class="form-control input-md" style="width: 80%;">
+                  </div>
+
+                  <div class="button">
+                    <!--<button id="singlebutton" name="singlebutton" class="btn btn-info btn-sm pull-right">Sign In</button>-->
+                    <button type="submit">Save</button>
+                  </div>
+                  <!--</div>-->
+                </div>
+
+
+
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--</div>
+
+  <script type="text/javascript" src="/plugins/tokenize/jquery.tokenize.js"></script>
+</body>
+</html>
+
+<script>
+$('#tokenize_nonewelement').tokenize({newElements:false});
+$('#tokenize_preference').tokenize({newElements:false});
+</script>-->
