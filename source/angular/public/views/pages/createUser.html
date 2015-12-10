@@ -1,81 +1,4 @@
-<style>
-  .tokenize-sample { width: 300px }
-
-  .spacing {
-    padding-top:7px;
-    padding-bottom:7px;
-  }
-  
-  .middlePage {
-    /*width: 680px;
-    height: 500px;*/
-    width: 50%;
-    height: 50%;
-    position: absolute;
-    padding-top: 15%;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-
-  #panel-body {
-    width: 50%;
-    height: 50%;
-    position: absolute;
-    padding-top: 15%;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-
-  .logo {
-    color:#CCC;
-  }
-
-  .panel-body {
-    height: 500px;
-  }
-
-  .field {
-    margin-top: 1em;
-    width: 100%;
-  }
-
-  input[type=radio] {
-   background-color:transparent;
-   border:none;
-   width:10px;
-   }
-
-  input[type=textinput] {
-     margin-right: 30%;
-  }
-
-   .button {
-    /* To position the buttons to the same position of the text fields */
-    /*padding-left: 95px; /* same size as the label elements */
-    padding-left: 70%;
-    margin-top: 1em;
-  }
-
-  button {
-    /* This extra magin represent the same space as the space between
-       the labels and their text fields */
-    margin-left: .5em;
-  }
-
-  #slider {
-      display: none;
-  }
-
-</style>
-
-<!--<div class="middlePage">-->
-        <div class="page-header">
+<!-- <div class="page-header">
           <h1 class="logo">Nourriture <small>Welcome to your kitchen!</small></h1>
         </div>
 
@@ -89,7 +12,6 @@
               <div class="col-md-7">
                 <form class="form-horizontal" action="/insertUserData" method="post">
                   <fieldset>
-                   <!--<div id="all">-->
                    <div class="field">
                     <label for="name">Username :</label>
                     <input id="textinput" name="username" type="text" class="form-control input-md" style="width: 80%;">
@@ -102,18 +24,18 @@
                   <div class="field">
                     <label for="allergic">Allergic food :</label>
                     <select id="tokenize_nonewelement" name="allergens" multiple="multiple" class="tokenize-sample">
-                      <% for (var i = 0; i < allergens.length; i++) { %>
-                      <option value="<%= allergens[i]["name"] %>"><%= allergens[i]["name"] %></option>
-                      <% }%>
+                      <% /*for (var i = 0; i < allergens.length; i++) { */%>
+                      <option value="<%= /*allergens[i]["name"] %>"><%= allergens[i]["name"] */%></option>
+                      <%/* }*/%>
                     </select>
                   </div>
 
                   <div class="field">
                     <label for="preference">Your preferences:</label>
                     <select id="tokenize_preference" name="preference[]" multiple="multiple" class="tokenize-sample">
-                      <% for (var i = 0; i < ingredients.length; i++) { %>
-                      <option value="<%= ingredients[i]["name"] %>"><%= ingredients[i]["name"] %></option>
-                      <% }%>
+                      <% /*for (var i = 0; i < ingredients.length; i++) { */%>
+                      <option value="<%= /*ingredients[i]["name"] */%>"><%= /*ingredients[i]["name"] */%></option>
+                      <% /*}*/%>
                     </select>
                   </div>
                   <div class="field">
@@ -122,10 +44,8 @@
                   </div>
 
                   <div class="button">
-                    <!--<button id="singlebutton" name="singlebutton" class="btn btn-info btn-sm pull-right">Sign In</button>-->
                     <button type="submit">Save</button>
                   </div>
-                  <!--</div>-->
                 </div>
 
 
@@ -135,15 +55,109 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
-  <!--</div>
 
-  <script type="text/javascript" src="/plugins/tokenize/jquery.tokenize.js"></script>
-</body>
-</html>
+<!--<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS
+    ================================================ -->
+    <!-- Owl Carousel --
+    <link rel="stylesheet" href="css/owl.carousel.css">-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
 
-<script>
-$('#tokenize_nonewelement').tokenize({newElements:false});
-$('#tokenize_preference').tokenize({newElements:false});
-</script>-->
+    <!--<link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>-->
+<style type="text/css">
+  form form-group {
+    width: 80%;
+  }
+  form label {
+    width: 33.33%;
+    line-height: 48px;
+    float: left;
+    text-align: right;
+  }
+  input[type=radio] {
+    vertical-align: middle;
+  }
+  .btn-container {
+    text-align: center;
+  }
+  @media only screen and (max-width: 767px) {
+    form label {
+      text-align: left;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    #contact-us .block {
+      text-align: initial;
+    }
+  }
+
+  <style>
+    #slider {
+      display: none;
+    }
+  </style>
+</style>
+
+    <!-- include header here -->
+
+    <section id="contact-us">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="block">
+              <h1 class="heading wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms"> <span>NOURRITURE</span>&nbsp;,&nbsp;&nbsp;Welcome to your kitchen ! </h1>
+              <form>
+                <div class="form-group wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="600ms">
+                  <label class="col-sm-2 col-xs-12" for="name">Username :</label>
+                  <span class="col-sm-10 col-xs-12">
+                    <input type="text" class="form-control" id="name" placeholder="Choose your username">
+                  </span>
+                </div>
+                <div class="form-group wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="1000ms">
+                  <label class="col-sm-2 col-xs-12" for="password">Password :</label>
+                  <span class="col-sm-10 col-xs-12">
+                    <input type="password" class="form-control" id="password" placeholder="New password">
+                  </span>
+                </div>
+                <div class="form-group wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="600ms">
+                  <label class="col-sm-2 col-xs-12" for="gender">Gender :</label>
+                  <span class="col-sm-10 col-xs-12">
+                    <input type="radio" name="gender" /> male
+                    <input type="radio" name="gender" style="margin-left: 20px;"/> female
+                  </span>
+                </div>
+                <div class="form-group wow fadeInDown col-sm-12" data-wow-duration="500ms" data-wow-delay="800ms">
+                  <label class="col-sm-2 col-xs-12" for="allergic">Allergic food :</label>
+                  <span class="col-sm-10 col-xs-12">
+                    <input type="textinput" data-role="tagsinput" name="textinput" class="form-control" id="allergic" placeholder="Write your allergic food here...">
+                  </span>
+                </div>
+                <div class="form-group btn-container col-sm-12">
+                  <a class="btn btn-default wow bounceIn" data-wow-duration="500ms" data-wow-delay="1300ms" href="#" role="button" style="float:initial; margin-top:20px;">Save</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
