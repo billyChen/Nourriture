@@ -2,6 +2,7 @@ var express = require('express')
 , passport = require('passport')
 , util = require('util')
 , FacebookStrategy = require('passport-facebook').Strategy
+, FacebookTokenStrategy = require('passport-facebook-token')
 , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 , logger = require('morgan')
 , session = require('express-session')
@@ -12,22 +13,15 @@ var express = require('express')
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('mongodb://root:123456@ds049624.mongolab.com:49624/nourriture');
+var request = require('request');
 
 var FACEBOOK_APP_ID = "322980324492560";
 var FACEBOOK_APP_SECRET = "745cc0ed81f3de714e42d6fd086abff5";
 var GOOGLE_CLIENT_ID = "961840791432-kmmtn60o69622kgl2gsdia8d3kpdc6j4.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "vQJtPVgD6E7HpDzFC7Y96k_Y";
-
 var removeDiacritics = require('diacritics').remove;
 
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete Facebook profile is serialized
-//   and deserialized.
-
+// *************************************** PASSPORT **************************************************
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -35,6 +29,16 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
+
+passport.use(new FacebookTokenStrategy({
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET
+}, function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate({facebookId: profile.id}, function (error, user) {
+    return done(error, user);
+  });
+}
+));
 
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
@@ -44,45 +48,76 @@ passport.use(new GoogleStrategy({
 function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
+      var collection = db.get('users');
 
-      // To keep the example simple, the user's Google profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Google account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
+      collection.find({'profile.id': profile.id}, {}, function (e, user)
+      {
+        if (isEmpty(user) === false)
+        {
+          return done(null, user);
+        }
+        else {
+         request.post(
+         {
+          url: 'http://nourritureapi.herokuapp.com/addUsers',
+          method: 'POST',
+          form:
+          {
+            _access_token: accessToken,
+            profile: profile
+          }
+        },
+        function (error, response, body)
+        {
+          return done(null, profile);
+        });
+
+       }
+     });
     });
   }
   ));
 
-
-// Use the FacebookStrategy within Passport.
-//   Strategies in Passport require a `verify` function, which accept
-//   credentials (in this case, an accessToken, refreshToken, and Facebook
-//   profile), and invoke a callback with a user object.
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_APP_ID,
   clientSecret: FACEBOOK_APP_SECRET,
   callbackURL: "https://nourritureapi.herokuapp.com/auth/facebook/callback"
 },
 function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
+  process.nextTick(function () {
+    var collection = db.get('users');
 
-      // To keep the example simple, the user's Facebook profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Facebook account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
-  ));
+    collection.find({'_facebook_id': profile.id}, {}, function (e, user)
+    {
+      if (user)
+      {
+        return done(null, user);
+      }
+      else
+      {
 
+       request.post(
+       {
+        url: 'http://nourritureapi.herokuapp.com/addUsers',
+        method: 'POST',
+        form:
+        {
+          _access_token: accessToken,
+          profile: profile,
+        }
+      },
+      function (error, response, body)
+      {
+        return done(null, profile);
+      });
 
-
-
+     }
+   });
+  });
+}
+));
 var app = express();
 
-// configure Express
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(logger());
@@ -90,48 +125,40 @@ app.use(cookieParser());
 app.use(bodyParser());
 app.use(methodOverride());
 app.use(session({ secret: 'keyboard cat' }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(express.static(__dirname + '/public'));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
 
+app.use(function(req,res,next){
+  req.db = db;
+  next();
+});
 
-  app.use(function(req,res,next){
-    req.db = db;
-    next();
-  });
+app.get('/', function(req, res){
+  res.render('index', { user: req.user });
+});
 
-  app.get('/', function(req, res){
-    res.render('index', { user: req.user });
-  });
+app.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account', { user: req.user });
+});
 
-  app.get('/account', ensureAuthenticated, function(req, res){
-    res.render('account', { user: req.user });
-  });
+app.get('/login', function(req, res){
+  res.render('login', { user: req.user });
+});
 
-  app.get('/login', function(req, res){
-    res.render('login', { user: req.user });
-  });
+app.post('/auth/facebook/token',
+         passport.authenticate('facebook-token'),
+         function (req, res) {
+    // do something with req.user
+    res.send(req.user? 200 : 401);
+  }
+  );
 
-
-// GET /auth/google
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Google authentication will involve
-//   redirecting the user to google.com.  After authorization, Google
-//   will redirect the user back to this application at /auth/google/callback
 app.get('/auth/google',
         passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
         function(req, res){
-    // The request will be redirected to Google for authentication, so this
-    // function will not be called.
-  });
+        });
 
-// GET /auth/google/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 app.get('/auth/google/callback',
         passport.authenticate('google', { successRedirect: '/success',
                               failureRedirect: '/login' }),
@@ -139,23 +166,12 @@ app.get('/auth/google/callback',
           res.redirect('/');
         });
 
-// GET /auth/facebook
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Facebook authentication will involve
-//   redirecting the user to facebook.com.  After authorization, Facebook will
-//   redirect the user back to this application at /auth/facebook/callback
+
 app.get('/auth/facebook',
         passport.authenticate('facebook'),
         function(req, res){
-    // The request will be redirected to Facebook for authentication, so this
-    // function will not be called.
-  });
+        });
 
-// GET /auth/facebook/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { successRedirect: '/success',
                               failureRedirect: '/failure' }),
@@ -177,17 +193,19 @@ app.get('/logout', function(req, res){
 });
 app.listen(process.env.PORT || 5000);
 
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login')
 }
 
+function isEmpty(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop))
+      return false;
+  }
+
+  return true;
+}
 
 // ************************************ INGREDIENTS ************************************
 
@@ -482,7 +500,6 @@ app.post('/search', function (req, res, next) {
 app.post('/advancedSearchRecipes', function (req, res, next) {
   var db = req.db;
   var collection = db.get('recipes');
-  var search = req.body.search;
   var result = [];
   var ingredients = req.body.ingredients;
   var JSON_ingredients = [];
@@ -490,22 +507,22 @@ app.post('/advancedSearchRecipes', function (req, res, next) {
   if (typeof ingredients === 'string' ) {
     ingredients = ingredients.split();
   }
+  if (typeof ingredients === 'undefined') {
+    ingredients = [];
+  }
   for (var i = 0; i < ingredients.length; i++) {
-    var json_obj = {};
-
-    json_obj['name'] = ingredients[i];
-    JSON_ingredients.push(json_obj);
+    JSON_ingredients.push(ingredients[i]);
   };
 
   collection.find({ $and: [{ "country": req.body.country},
-                           {"cost": {$gte: parseInt(req.body.cost1), $lte: parseInt(req.body.cost2)} },
-                           {'name' : new RegExp(req.body.name)},
-                           {"calories": {$gte: parseInt(req.body.calories1), $lte: parseInt(req.body.calories2)}},
-                           {"ingredients" : { $all: JSON_ingredients}}
-                          ]
-                  }, {}, function (e, docs) {
-    res.end(JSON.stringify(docs));
-  });
+                  {"cost": {$gte: parseInt(req.body.cost1), $lte: parseInt(req.body.cost2)} },
+                  {'name' : new RegExp(req.body.name)},
+                  {"calories": {$gte: parseInt(req.body.calories1), $lte: parseInt(req.body.calories2)}},
+                  {"ingredients.name" : { $all: JSON_ingredients}}
+                  ]
+                }, {}, function (e, docs) {
+                  res.end(JSON.stringify(docs));
+                });
 });
 
 app.post('/ensureAuth', function (req, res, next) {
