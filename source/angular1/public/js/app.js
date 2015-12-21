@@ -22,7 +22,7 @@ angular.module('myApp', [])
 		$http.get('https://nourritureapi.herokuapp.com/listUsers')
 			.then(function(data) {
 				vm.users = data.users;
-				console.log(data.users);
+				console.log(data);
 			});
 	});
 

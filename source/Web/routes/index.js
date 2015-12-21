@@ -2,17 +2,11 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var sess = req.session;
   res.render('index', { title: 'Home', sess: sess });
 });
-
-/*router.get('/', function(req, res, next) {
-  var sess = req.session;
-  res.sendfile('views/index.html');
-});*/
 
 /* GET nourriture page. */
 router.get('/nourriture', function(req, res, next){
@@ -85,20 +79,4 @@ router.get('/getSuitability/:id', function(req, res, next){
   }
 });
 
-router.get('/alternativeProducts', function(req, res, next){
-  if (req.session['user']) {
-    request.post({
-      url: 'http://nourritureapi.herokuapp.com/getAlternativeProducts',
-      method: 'POST',
-      form: {
-        _user: req.session['user']
-      }
-    }, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var result = body;
-      }
-      res.send(body);
-    });
-  }
-});
 module.exports = router;

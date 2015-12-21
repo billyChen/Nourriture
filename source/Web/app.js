@@ -16,11 +16,9 @@ var db = monk('mongodb://root:123456@ds049624.mongolab.com:49624/nourriture');
 
 var app = express();
 
-app.engine('html', require('ejs').renderFile);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,11 +34,6 @@ app.use(function(req,res,next){
   next();
 });
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/views/index.html'));
-});
-
-/*
 app.get('/createUser', function(req, res, next){
   var db = req.db;
   var collection = db.get('allergens');
@@ -89,7 +82,7 @@ app.post('/UserAuthentication', function(req, res, next){
 app.get('/logOut', function (req, res, next) {
   req.session.destroy();
 });
-*/
+
 
 
 app.use('/', routes);
